@@ -30,7 +30,7 @@ class Profile(models.Model):
     first_name = models.CharField(blank=True, max_length=20, null=True)
     last_name = models.CharField(blank=True, max_length=20, null=True)
     is_online = models.BooleanField(default=False)
-    friends = models.ManyToManyField('self', related_name='my_friends', blank=True)
+    # friends = models.ManyToManyField('self', related_name='my_friends', blank=True)
     bio = models.CharField(default="",blank=True,null=True,max_length=350)
     date_of_birth = models.CharField(blank=True,max_length=150)
     updated = models.DateTimeField(auto_now=True)
@@ -61,3 +61,72 @@ class Profile(models.Model):
 #     date_of_birth = models.CharField(blank=True,max_length=150)
 #     updated = models.DateTimeField(auto_now=True)
 #     created = models.DateTimeField(auto_now_add=True)
+
+
+class FriendRequest(models.Model):
+    SEND = 'send'
+    ACCEPTED = 'accepted'
+    REJECTED = 'rejected'
+    STATUS_CHOICES = (
+    ('send','send'),
+    ('accepted','accepted'),
+    ('rejected', 'rejected')
+)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_receiver')
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender}-{self.receiver}-{self.status}"
+    
+    def accept(self):
+        # update both sender and receiver friend list
+        receiver_friend_list, flag = FriendList.objects.get_or_create(user=self.receiver)
+        if receiver_friend_list:
+            receiver_friend_list.add_friend(self.sender)
+            sender_friend_list, flag = FriendList.objects.get_or_create(user=self.sender)
+            if sender_friend_list:
+                sender_friend_list.add_friend(self.receiver)
+                self.status = FriendRequest.ACCEPTED
+                self.save()
+
+    def decline(self):
+        self.status = FriendRequest.REJECTED
+        self.save()
+
+    def cancel(self):
+        self.status = FriendRequest.REJECTED
+        self.save()
+    
+
+""" FriendList model """
+class FriendList(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
+    friends = models.ManyToManyField(User, blank=True, related_name='friends')
+    
+    def __str__(self):
+        return self.user.username
+
+    def add_friend(self, account):
+        if not account in self.friends.all():
+            self.friends.add(account)
+            self.save()
+
+    def remove_friend(self, account):
+        if account in self.friends.all():
+            self.friends.remove(account)
+            self.save()
+
+    def unfriend(self, removee):
+        remover_friends_list = self
+        remover_friends_list.remove_friend(removee)
+
+        friends_list = FriendList.objects.get(user=removee)
+        friends_list.remove_friend(self.user)
+
+    def is_mutual_friend(self, friend):
+        if friend in self.friends.all():
+            return True
+        return False

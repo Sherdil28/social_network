@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  social_network:
+    build: .
+    volumes:
+      - .:/social_network
+    ports:
+      - "8026:8000"
+    container_name: social_network
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - dbmodule
+
+    restart: always
+    networks:
+      - app-network
+    stdin_open: true
+    tty: true
+
+  dbmodule:
+    platform: linux/x86_64       # THIS IS FOR APPLE M1 getting this error ( no matching manifest for linux/arm64/v8 in the manifest list entries )
+    image: mysql:5.7
+    volumes:
+      - ./data/mysql/db:/var/lib/mysql
+      - ./data/mysql/logs:/var/log
+      - ./data/mysql/data:/data
+    restart: always
+    ports:
+      - '3326:3306'
+    container_name: dbmodule
+    environment:
+      MYSQL_DATABASE: 'RestBook'
+      #  MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'admin123'
+      MYSQL_ROOT_PASSWORD: 'admin123'
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge

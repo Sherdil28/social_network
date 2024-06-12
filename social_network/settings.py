@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-fu_&rs@vo@^*8n4%7i!@9sji%*wwfvb*&a+23woeb1-202o%r=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0"]
 
 
 # Application definition
@@ -81,7 +81,13 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 1,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '3/minute'                 # Setting Throttle Rate to be used in send friend request API.
+    }
 }
 
 INSTALLED_APPS = [

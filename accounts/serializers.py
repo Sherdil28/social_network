@@ -25,4 +25,17 @@ class CreateProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('user', 'first_name', 'last_name')
 
-        
+
+
+class SearchResultSerializer(serializers.Serializer):
+    user = CreateUserSerializer()
+
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    name = serializers.SerializerMethodField()
+    # user_id = serializers.IntegerField()
+    # email = serializers.EmailField()
+    bio = serializers.CharField()
+
+    def get_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"
