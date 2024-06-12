@@ -21,10 +21,18 @@ from rest_framework import routers
 from accounts import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('accounts/', include('accounts.urls')),
+    #Authentication
+    path('signup/', include('djoser.urls')),  # Djoser URLs
+    path('login/', include('djoser.urls.jwt')),  # JWT URLs
+
+    # path('token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
 ]
