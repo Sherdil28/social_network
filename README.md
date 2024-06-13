@@ -37,7 +37,10 @@ Request (JSON): {"email": <email_id>}
     "email": <email_id>
 }`
 
+
 <img width="1792" alt="Screenshot 2024-06-13 at 12 59 03 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/91fbf40f-9fb6-4df2-80c6-05f64d693f5c">
+
+
 
 2. Login with email (as username) and password (same as email).
 
@@ -51,12 +54,20 @@ Request (form_data): username:demo_user5@gmail.com
     "access": <access_token>
 }`
    
+
 <img width="1792" alt="Screenshot 2024-06-13 at 1 00 16 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/1726fdc5-9131-4577-9da2-dd58f6268521">
 
+
+
 3. Copy Access Token obtained from Login API Response.
+
+
 <img width="1792" alt="Screenshot 2024-06-13 at 1 01 15 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/2536c7ff-7f81-47b6-a565-ccc8953b9409">
 
+
 **Use this token as Bearer Authentication in each of the further APIs.**
+
+
 
 4. Create User Profile with first_name, last_name :-
 
@@ -71,7 +82,10 @@ Request (JSON): {"first_name": <first_name>,
     "last_name": "user2"
 }`
 
-   <img width="1792" alt="Screenshot 2024-06-13 at 1 01 47 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/c838f3dc-7f33-4f39-a236-3e05152db5bc">
+  
+ <img width="1792" alt="Screenshot 2024-06-13 at 1 01 47 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/c838f3dc-7f33-4f39-a236-3e05152db5bc">
+
+
 
 5. Search for any user via email OR name :-
 
@@ -98,9 +112,13 @@ Request (form-data): search_key:name OR email
    }
    ]}`
    
+
 <img width="1792" alt="Screenshot 2024-06-13 at 1 32 48 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/4c42ceae-2ab5-4785-b6ba-0eef02b5d1fc">
 
+
    **You can use user_id for listed Profiles/Users to send Friend Requests in respective APIs.**
+
+
 
 6. Send Friend Request :-
 
@@ -115,7 +133,10 @@ Request (json): {
     "friend_request_id": <friend_request_id>
 }`
 
-   <img width="1792" alt="Screenshot 2024-06-13 at 1 35 34 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/39d1c583-4ee1-4f90-b3e4-1067d44bdf57">
+   
+<img width="1792" alt="Screenshot 2024-06-13 at 1 35 34 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/39d1c583-4ee1-4f90-b3e4-1067d44bdf57">
+
+
 
 7. Accept/Reject Friend Request :-
 
@@ -139,7 +160,10 @@ OR
     "response": "Friend request declined."
 }`
    
+
 <img width="1792" alt="Screenshot 2024-06-13 at 1 39 46 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/b47d229e-400a-465e-be16-397e5d7d4659">
+
+
 
 8. List Pending Friend Request :-
 
@@ -155,7 +179,10 @@ Request (None): None
     ]
 }`
 
-  <img width="1792" alt="Screenshot 2024-06-13 at 1 42 32 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/3ed1783a-f45c-44d6-bf33-ca4574bbb605">
+ 
+ <img width="1792" alt="Screenshot 2024-06-13 at 1 42 32 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/3ed1783a-f45c-44d6-bf33-ca4574bbb605">
+
+
 
 9. List All Friends API :-
 
@@ -179,7 +206,10 @@ Request (None): None
     ]
 }`
 
-  <img width="1792" alt="Screenshot 2024-06-13 at 1 43 15 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/1bb89017-2d33-497c-b68d-bb51e1bb773d">
+  
+<img width="1792" alt="Screenshot 2024-06-13 at 1 43 15 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/1bb89017-2d33-497c-b68d-bb51e1bb773d">
+
+
 
 10. Remove a Friend :-
 
@@ -192,6 +222,7 @@ Request (json): {
 `Response :{
     "response": "Successfully removed that friend."
 }`
+
 
   <img width="1792" alt="Screenshot 2024-06-13 at 1 40 54 PM" src="https://github.com/Sherdil28/social_network/assets/57909176/85937dd1-c5a9-4c82-94c2-e1620f76e482">
 
