@@ -15,12 +15,18 @@
    `$ docker-compose up build --d`
 
 4. Check status of running instances :
-   `$ docker-compose ps`
+  
+ `$ docker-compose ps`
 
-5. The App is available after successful startup of social_media container on following endpoint :-
+5. Run migrations :-
+
+`$ docker exec -it social_network python manage.py makemigrations`
+`$ docker exec -it social_network python manage.py migrate`
+
+6. The App is available after successful startup of social_media container on following endpoint :-
    **http://0.0.0.0:8026/**
 
-6. Open Postman and import following collection :-
+7. Open Postman and import following collection :-
 
 The collection is named:  **__social_media_drf.postman_collection.json__**
 It is included in the root directory in __master__ branch
